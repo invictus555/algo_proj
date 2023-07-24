@@ -72,7 +72,7 @@ func (stack *ArrayStack) IsEmpty() bool {
 	return stack.Size() == 0
 }
 
-func TestStack(t *testing.T) {
+func TestStack(_ *testing.T) {
 	arrayStack := new(ArrayStack)
 	arrayStack.Push("cat")
 	arrayStack.Push("dog")

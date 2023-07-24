@@ -1,10 +1,13 @@
 package list
 
+import "algo_proj/utils"
+
 type SinglyNode struct {
 	val  string
 	next *SinglyNode
 }
 
+// 带有头节点的单链表
 type SinglyLinkedList struct {
 	size int
 	head *SinglyNode
@@ -24,31 +27,34 @@ func NewSinglyLinkedList() *SinglyLinkedList {
 	}
 }
 
-func (list *SinglyLinkedList) Push(val string) {
+func (list *SinglyLinkedList) Push(val string) error {
 	node := NewSinglyNode(val)
-
+	if node == nil {
+		return utils.ErrOom
+	}
 	// 头插法
 	node.next = list.head.next
 	list.head.next = node
 	list.size = list.size + 1
+	return nil
 }
 
-func (list *SinglyLinkedList) Pop() string {
+func (list *SinglyLinkedList) Pop() (string, error) {
 	if list.head.next == nil {
-		panic("empty")
+		return "", utils.ErrEmpty
 	}
 
 	ret := list.head.next
 	list.head.next = list.head.next.next
 	list.size = list.size - 1
-	return ret.val
+	return ret.val, nil
 }
 
-func (list *SinglyLinkedList) Peak() string {
+func (list *SinglyLinkedList) Peak() (string, error) {
 	if list.head.next == nil {
-		panic("empty")
+		return "", utils.ErrEmpty
 	}
-	return list.head.next.val
+	return list.head.next.val, nil
 }
 
 func (list *SinglyLinkedList) Size() int {

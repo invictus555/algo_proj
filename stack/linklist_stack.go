@@ -16,11 +16,14 @@ func (stack *LinkedListStack) Push(v string) {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 
-	stack.list.Push(v)
+	if err := stack.list.Push(v); err != nil {
+		return
+	}
+
 	stack.size = stack.size + 1
 }
 
-func (stack *LinkedListStack) Pop() string {
+func (stack *LinkedListStack) Pop() (string, error) {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 
@@ -28,9 +31,12 @@ func (stack *LinkedListStack) Pop() string {
 		panic("empty")
 	}
 
-	v := stack.list.Pop()
+	v, err := stack.list.Pop()
+	if err != nil {
+		return v, err
+	}
 	stack.size = stack.size - 1
-	return v
+	return v, nil
 }
 
 func (stack *LinkedListStack) Peak() string {
@@ -41,7 +47,11 @@ func (stack *LinkedListStack) Peak() string {
 		panic("empty")
 	}
 
-	return stack.list.Peak()
+	v, err := stack.list.Peak()
+	if err != nil {
+		return ""
+	}
+	return v
 }
 
 // 栈大小
