@@ -8,10 +8,10 @@
  */
 package utils
 
-type SortType int
+type SortOpt int
 
 const (
-	No SortType = iota
+	No SortOpt = iota
 	Asc
 	Desc
 )

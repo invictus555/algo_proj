@@ -2,7 +2,7 @@
  * @Author: shengchao
  * @Date: 2023-06-19 11:01:21
  * @LastEditors: your name
- * @LastEditTime: 2023-07-26 19:45:48
+ * @LastEditTime: 2023-07-26 19:59:27
  * @Description:
  * @FilePath: /algo_proj/list/doubly_linkedlist.go
  */
@@ -26,6 +26,10 @@ func NewDoublyLinkedList[T interface{}]() api.List[T] {
 	}
 }
 
+/**
+ * @description:
+ * @return {*}
+ */
 func (list *DoublyLinkedList[T]) Size() int {
 	list.lock.Lock()
 	defer list.lock.Unlock()
@@ -33,7 +37,12 @@ func (list *DoublyLinkedList[T]) Size() int {
 	return list.size
 }
 
+/**
+ * @description:
+ * @return {*}
+ */
 func (list *DoublyLinkedList[T]) Head() (T, error) {
+
 	return list.header.val, nil
 }
 
