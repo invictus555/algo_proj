@@ -1,6 +1,16 @@
+/*
+ * @Author: shengchao
+ * @Date: 2023-06-18 23:19:34
+ * @LastEditors: your name
+ * @LastEditTime: 2023-07-26 18:23:26
+ * @Description: 基于单链表实现栈
+ * @FilePath: /algo_proj/stack/linklist_stack.go
+ */
+
 package stack
 
 import (
+	"algo_proj/api"
 	"algo_proj/list"
 	"algo_proj/utils"
 	"sync"
@@ -13,10 +23,10 @@ type LinkedListStack[Type interface{}] struct {
 	list *list.SinglyLinkedList[Type] // 单链表
 }
 
-func NewLinkedStack[Type interface{}](sortType utils.SortType, cmpfunc list.CompareFunc[Type]) *LinkedListStack[Type] {
+func NewLinkedStack[Type interface{}]() api.Stack[Type] {
 	return &LinkedListStack[Type]{
 		size: 0,
-		list: list.NewSinglyLinkedList[Type](sortType, cmpfunc),
+		list: list.NewSinglyLinkedList[Type](utils.No, nil),
 	}
 }
 

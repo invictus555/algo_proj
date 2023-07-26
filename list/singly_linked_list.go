@@ -2,32 +2,35 @@
  * @Author: shengchao
  * @Date: 2023-06-19 11:00:49
  * @LastEditors: your name
- * @LastEditTime: 2023-07-26 17:26:24
+ * @LastEditTime: 2023-07-26 18:17:48
  * @Description:--- 范型语法定义单链表 ---
- * @FilePath: /algo_proj/list/singly_linked_list.go
+ * @FilePath: /algo_proj/list/singly_linked_list_impl.go
  */
 package list
 
-import "algo_proj/utils"
+import (
+	"algo_proj/api"
+	"algo_proj/utils"
+)
 
 // 带有头节点的单链表
-type SinglyLinkedList[Type interface{}] struct {
+type SinglyLinkedList[T interface{}] struct {
 	size     int
 	sortType utils.SortType
-	head     *SinglyNode[Type]
-	cmpFunc  CompareFunc[Type]
+	head     *SinglyNode[T]
+	cmpFunc  api.CompareFunc[T]
 }
 
-func NewSinglyLinkedList[Type interface{}](sortType utils.SortType, cmpFunc CompareFunc[Type]) *SinglyLinkedList[Type] {
-	return &SinglyLinkedList[Type]{
+func NewSinglyLinkedList[T interface{}](sortType utils.SortType, cmpFunc api.CompareFunc[T]) *SinglyLinkedList[T] {
+	return &SinglyLinkedList[T]{
 		size:     0,
 		sortType: sortType,
 		cmpFunc:  cmpFunc,
-		head:     NewDefaultSinglyNode[Type](),
+		head:     NewDefaultSinglyNode[T](),
 	}
 }
 
-func (list *SinglyLinkedList[Type]) Insert(val Type) bool {
+func (list *SinglyLinkedList[T]) Insert(val T) bool {
 	node := NewSinglyNode(val)
 	if node == nil {
 		return false
@@ -59,7 +62,7 @@ func (list *SinglyLinkedList[Type]) Insert(val Type) bool {
 	return true
 }
 
-func (list *SinglyLinkedList[Type]) Delete(val Type) bool {
+func (list *SinglyLinkedList[T]) Delete(val T) bool {
 	if list.head.next == nil {
 		return false
 	}
@@ -85,7 +88,7 @@ func (list *SinglyLinkedList[Type]) Delete(val Type) bool {
 	return true
 }
 
-func (list *SinglyLinkedList[Type]) Find(val Type) bool {
+func (list *SinglyLinkedList[T]) Find(val T) bool {
 	if list.head.next == nil {
 		return false
 	}
@@ -104,13 +107,13 @@ func (list *SinglyLinkedList[Type]) Find(val Type) bool {
 	return pointer != nil
 }
 
-func (list *SinglyLinkedList[Type]) Head() (Type, error) {
+func (list *SinglyLinkedList[T]) Head() (T, error) {
 	if list.head.next == nil {
 		return list.head.val, utils.ErrListEmpty
 	}
 	return list.head.next.val, nil
 }
 
-func (list *SinglyLinkedList[Type]) Size() int {
+func (list *SinglyLinkedList[T]) Size() int {
 	return list.size
 }
