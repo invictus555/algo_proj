@@ -2,9 +2,9 @@
  * @Author: shengchao
  * @Date: 2023-06-19 11:00:49
  * @LastEditors: your name
- * @LastEditTime: 2023-07-26 18:17:48
+ * @LastEditTime: 2023-07-26 19:56:44
  * @Description:--- 范型语法定义单链表 ---
- * @FilePath: /algo_proj/list/singly_linked_list_impl.go
+ * @FilePath: /algo_proj/list/singly_linkedlist.go
  */
 package list
 
@@ -17,27 +17,27 @@ import (
 type SinglyLinkedList[T interface{}] struct {
 	size     int
 	sortType utils.SortType
-	head     *SinglyNode[T]
 	cmpFunc  api.CompareFunc[T]
+	header   *SinglyLinkedListNode[T]
 }
 
-func NewSinglyLinkedList[T interface{}](sortType utils.SortType, cmpFunc api.CompareFunc[T]) *SinglyLinkedList[T] {
+func NewSinglyLinkedList[T interface{}](sortType utils.SortType, cmpFunc api.CompareFunc[T]) api.List[T] {
 	return &SinglyLinkedList[T]{
 		size:     0,
 		sortType: sortType,
 		cmpFunc:  cmpFunc,
-		head:     NewDefaultSinglyNode[T](),
+		header:   NewDefaultSinglyLinkedListNode[T](),
 	}
 }
 
 func (list *SinglyLinkedList[T]) Insert(val T) bool {
-	node := NewSinglyNode(val)
+	node := NewSinglyLinkedListNode(val)
 	if node == nil {
 		return false
 	}
 
-	head := list.head
-	targetPosition := list.head
+	head := list.header
+	targetPosition := list.header
 	if list.cmpFunc != nil && list.sortType != utils.No { // 以升序/降序插入
 		cmpfunc := list.cmpFunc
 		curPointer := head.next
@@ -63,14 +63,14 @@ func (list *SinglyLinkedList[T]) Insert(val T) bool {
 }
 
 func (list *SinglyLinkedList[T]) Delete(val T) bool {
-	if list.head.next == nil {
+	if list.header.next == nil {
 		return false
 	}
 
 	var found = false
-	head := list.head
+	head := list.header
 	curPointer := head.next
-	prePointer := list.head
+	prePointer := list.header
 	for ; curPointer != nil; curPointer = curPointer.next {
 		if list.cmpFunc(curPointer.val, val) == 0 {
 			found = true
@@ -89,11 +89,11 @@ func (list *SinglyLinkedList[T]) Delete(val T) bool {
 }
 
 func (list *SinglyLinkedList[T]) Find(val T) bool {
-	if list.head.next == nil {
+	if list.header.next == nil {
 		return false
 	}
 
-	pointer := list.head.next
+	pointer := list.header.next
 	for {
 		if pointer == nil {
 			break
@@ -108,10 +108,10 @@ func (list *SinglyLinkedList[T]) Find(val T) bool {
 }
 
 func (list *SinglyLinkedList[T]) Head() (T, error) {
-	if list.head.next == nil {
-		return list.head.val, utils.ErrListEmpty
+	if list.header.next == nil {
+		return list.header.val, utils.ErrListEmpty
 	}
-	return list.head.next.val, nil
+	return list.header.next.val, nil
 }
 
 func (list *SinglyLinkedList[T]) Size() int {

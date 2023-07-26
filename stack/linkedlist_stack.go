@@ -2,9 +2,9 @@
  * @Author: shengchao
  * @Date: 2023-06-18 23:19:34
  * @LastEditors: your name
- * @LastEditTime: 2023-07-26 18:23:26
+ * @LastEditTime: 2023-07-26 19:57:14
  * @Description: 基于单链表实现栈
- * @FilePath: /algo_proj/stack/linklist_stack.go
+ * @FilePath: /algo_proj/stack/linkedlist_stack.go
  */
 
 package stack
@@ -17,20 +17,20 @@ import (
 )
 
 // 基于链表的栈
-type LinkedListStack[Type interface{}] struct {
-	size int                          // 栈元素数量
-	lock sync.Mutex                   // 并发安全锁
-	list *list.SinglyLinkedList[Type] // 单链表
+type LinkedListStack[T interface{}] struct {
+	size int         // 栈元素数量
+	lock sync.Mutex  // 并发安全锁
+	list api.List[T] // 单链表
 }
 
-func NewLinkedStack[Type interface{}]() api.Stack[Type] {
-	return &LinkedListStack[Type]{
+func NewLinkedStack[T interface{}]() api.Stack[T] {
+	return &LinkedListStack[T]{
 		size: 0,
-		list: list.NewSinglyLinkedList[Type](utils.No, nil),
+		list: list.NewSinglyLinkedList[T](utils.No, nil),
 	}
 }
 
-func (stack *LinkedListStack[Type]) Push(v Type) bool {
+func (stack *LinkedListStack[T]) Push(v T) bool {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 
@@ -42,7 +42,7 @@ func (stack *LinkedListStack[Type]) Push(v Type) bool {
 	return true
 }
 
-func (stack *LinkedListStack[Type]) Pop() (Type, error) {
+func (stack *LinkedListStack[T]) Pop() (T, error) {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 
@@ -56,7 +56,7 @@ func (stack *LinkedListStack[Type]) Pop() (Type, error) {
 	return v, nil
 }
 
-func (stack *LinkedListStack[Type]) Top() (Type, error) {
+func (stack *LinkedListStack[T]) Top() (T, error) {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 
@@ -68,13 +68,13 @@ func (stack *LinkedListStack[Type]) Top() (Type, error) {
 }
 
 // 栈大小
-func (stack *LinkedListStack[Type]) Size() int {
+func (stack *LinkedListStack[T]) Size() int {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 	return stack.size
 }
 
 // 栈是否为空
-func (stack *LinkedListStack[Type]) IsEmpty() bool {
+func (stack *LinkedListStack[T]) IsEmpty() bool {
 	return stack.Size() == 0
 }
