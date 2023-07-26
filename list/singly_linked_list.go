@@ -2,7 +2,7 @@
  * @Author: shengchao
  * @Date: 2023-06-19 11:00:49
  * @LastEditors: your name
- * @LastEditTime: 2023-07-26 17:14:04
+ * @LastEditTime: 2023-07-26 17:26:24
  * @Description:--- 范型语法定义单链表 ---
  * @FilePath: /algo_proj/list/singly_linked_list.go
  */
@@ -18,7 +18,7 @@ type SinglyLinkedList[Type interface{}] struct {
 	cmpFunc  CompareFunc[Type]
 }
 
-func NewSinglyLinkedList[Type interface{}](cmpFunc CompareFunc[Type], sortType utils.SortType) *SinglyLinkedList[Type] {
+func NewSinglyLinkedList[Type interface{}](sortType utils.SortType, cmpFunc CompareFunc[Type]) *SinglyLinkedList[Type] {
 	return &SinglyLinkedList[Type]{
 		size:     0,
 		sortType: sortType,
@@ -104,7 +104,7 @@ func (list *SinglyLinkedList[Type]) Find(val Type) bool {
 	return pointer != nil
 }
 
-func (list *SinglyLinkedList[Type]) Peak() (Type, error) {
+func (list *SinglyLinkedList[Type]) Head() (Type, error) {
 	if list.head.next == nil {
 		return list.head.val, utils.ErrListEmpty
 	}

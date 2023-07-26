@@ -1,9 +1,15 @@
+/*
+ * @Author: shengchao
+ * @Date: 2023-06-18 23:19:34
+ * @LastEditors: your name
+ * @LastEditTime: 2023-07-26 17:35:53
+ * @Description:
+ * @FilePath: /algo_proj/stack/array_stack.go
+ */
 package stack
 
 import (
-	"fmt"
 	"sync"
-	"testing"
 )
 
 // 基于数组的栈
@@ -16,7 +22,7 @@ type ArrayStack struct {
 // 入栈时直接把元素放在数组的最后面，然后元素数量加 1;
 // 性能损耗主要花在切片追加元素上，切片如果容量不够会自动扩容，
 // 底层损耗的复杂度我们这里不计，所以时间复杂度为O(1)
-func (stack *ArrayStack) Push(v string) {
+func (stack *ArrayStack) Push(v string) bool {
 	stack.lock.Lock()
 	defer stack.lock.Unlock()
 
@@ -25,6 +31,7 @@ func (stack *ArrayStack) Push(v string) {
 
 	// 栈中元素数量+1
 	stack.size = stack.size + 1
+	return true
 }
 
 // Pop 出栈
@@ -70,17 +77,4 @@ func (stack *ArrayStack) Size() int {
 // 栈是否为空
 func (stack *ArrayStack) IsEmpty() bool {
 	return stack.Size() == 0
-}
-
-func TestStack(_ *testing.T) {
-	arrayStack := new(ArrayStack)
-	arrayStack.Push("cat")
-	arrayStack.Push("dog")
-	arrayStack.Push("hen")
-	fmt.Println("size:", arrayStack.Size())
-	fmt.Println("pop:", arrayStack.Pop())
-	fmt.Println("pop:", arrayStack.Pop())
-	fmt.Println("size:", arrayStack.Size())
-	arrayStack.Push("drag")
-	fmt.Println("pop:", arrayStack.Pop())
 }
