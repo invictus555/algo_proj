@@ -1,11 +1,3 @@
-/*
- * @Author: shengchao
- * @Date: 2023-06-19 11:01:21
- * @LastEditors: your name
- * @LastEditTime: 2023-07-26 19:59:27
- * @Description:
- * @FilePath: /algo_proj/list/doubly_linkedlist.go
- */
 package list
 
 import (

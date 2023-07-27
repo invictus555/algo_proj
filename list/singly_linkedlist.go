@@ -1,11 +1,3 @@
-/*
- * @Author: shengchao
- * @Date: 2023-06-19 11:00:49
- * @LastEditors: your name
- * @LastEditTime: 2023-07-26 19:56:44
- * @Description:--- 范型语法定义单链表 ---
- * @FilePath: /algo_proj/list/singly_linkedlist.go
- */
 package list
 
 import (

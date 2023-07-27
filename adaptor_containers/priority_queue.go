@@ -9,4 +9,26 @@ type Adaptor4PriorityQueue[D interface{}] interface {
 
 // 嵌套范型
 type PriorityQueue[T interface{}, K Adaptor4PriorityQueue[T]] struct {
+	size      int
+	container K
+}
+
+func (pq *PriorityQueue[T, K]) Top(val *T) bool {
+	return true
+}
+
+func (pq *PriorityQueue[T, K]) Push(val T) bool {
+	return true
+}
+
+func (pq *PriorityQueue[T, K]) Pop(val *T) bool {
+	return true
+}
+
+func (pq *PriorityQueue[T, K]) Size() int {
+	return 0
+}
+
+func (pq *PriorityQueue[T, K]) Empty() bool {
+	return pq.Size() == 0
 }

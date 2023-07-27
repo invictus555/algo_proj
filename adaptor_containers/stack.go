@@ -9,4 +9,22 @@ type Adaptor4Stack[D interface{}] interface {
 
 // 嵌套范型
 type Stack[T interface{}, K Adaptor4Stack[T]] struct {
+	size      int
+	container K
+}
+
+func (stack *Stack[T, K]) Push(val T) bool {
+	return true
+}
+
+func (stack *Stack[T, K]) Pop(val *T) bool {
+	return true
+}
+
+func (stack *Stack[T, K]) Size() int {
+	return stack.size
+}
+
+func (stack *Stack[T, K]) Empty() bool {
+	return stack.Size() == 0
 }

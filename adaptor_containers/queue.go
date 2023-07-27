@@ -9,4 +9,30 @@ type Adaptor4Queue[D interface{}] interface {
 
 // 嵌套范型
 type queue[T interface{}, K Adaptor4Queue[T]] struct {
+	size      int
+	container K
+}
+
+func (q *queue[T, K]) Push(val T) bool {
+	return true
+}
+
+func (q *queue[T, K]) Pop(val *T) bool {
+	return true
+}
+
+func (q *queue[T, K]) Front(val *T) bool {
+	return true
+}
+
+func (q *queue[T, K]) Back(val *T) bool {
+	return true
+}
+
+func (q *queue[T, K]) Size() int {
+	return 0
+}
+
+func (q *queue[T, K]) Empty() bool {
+	return q.Size() == 0
 }

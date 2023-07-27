@@ -1,11 +1,3 @@
-/*
- * @Author: shengchao
- * @Date: 2023-07-26 13:26:12
- * @LastEditors: your name
- * @LastEditTime: 2023-07-26 19:30:16
- * @Description:--- 定义单链表节点 ---
- * @FilePath: /algo_proj/list/linkedlist_node.go
- */
 package list
 
 type SinglyLinkedListNode[T interface{}] struct {
