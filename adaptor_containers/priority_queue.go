@@ -7,7 +7,6 @@ type Adaptor4PriorityQueue[D interface{}] interface {
 	sequential_containers.Deque[D] | sequential_containers.Vector[D]
 }
 
-// 嵌套范型
 type PriorityQueue[T interface{}, K Adaptor4PriorityQueue[T]] struct {
 	size      int
 	container K

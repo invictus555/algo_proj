@@ -23,10 +23,15 @@ func NewDefaultSListNode[T interface{}]() *SListNode[T] {
 // 基于单链表的无序列表(元素不连续存放)
 // 由于是单链表, 因此list很多特性无法被实现, 例如:back、push_back、pop_back
 type SList[T interface{}] struct {
-	size   int
-	header *SListNode[T]
+	size   int           // 元素个数
+	header *SListNode[T] // 伪头部节点
 }
 
+/**
+ * @description: 访问表首的元素，不弹出
+ * @param {*T} val: 用于携带表首的元素
+ * @return {bool}: successfully if true, or failed
+ */
 func (list *SList[T]) Front(val *T) bool {
 	if list.header.next == nil {
 		return false
@@ -40,6 +45,10 @@ func (list *SList[T]) Size() int {
 	return list.size
 }
 
+/**
+ * @description: 链表是否为空
+ * @return {bool}: yes if true, or no
+ */
 func (list *SList[T]) Empty() bool {
 	return list.Size() == 0
 }
@@ -57,7 +66,7 @@ func (list *SList[T]) Insert(index int, val T) bool {
 	}
 
 	curPos := list.header
-	for i := index; curPos.next != nil && i > 0; curPos = curPos.next {
+	for i := index; curPos != nil && i > 0; curPos = curPos.next {
 		i--
 	}
 
@@ -68,6 +77,11 @@ func (list *SList[T]) Insert(index int, val T) bool {
 	return true
 }
 
+/**
+ * @description:弹出链表首的元素
+ * @param {*T} val: 指针类型，携带出表首元素
+ * @return {bool} successfully if true, or failed
+ */
 func (list *SList[T]) PopFront(val *T) bool {
 	if list.header.next == nil {
 		return false

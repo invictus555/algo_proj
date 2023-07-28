@@ -24,8 +24,9 @@ func NewDefaultDListNode[T interface{}]() *DListNode[T] {
 
 // 基于双链表的无序列表(元素不连续存放)
 type DList[T interface{}] struct {
-	size   int
-	header *DListNode[T]
+	size   int           // 元素个数
+	header *DListNode[T] // 指向双向链表的头部
+	tailer *DListNode[T] // 指向双向链表的尾部
 }
 
 func (list *DList[T]) Size() int {
@@ -55,9 +56,11 @@ func (list *DList[T]) Front(val *T) bool {
 func (list *DList[T]) Back(val *T) bool {
 	return true
 }
+
 func (list *DList[T]) PushBack(val T) bool {
 	return true
 }
+
 func (list *DList[T]) PopBack(val *T) bool {
 	return true
 }
